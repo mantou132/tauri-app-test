@@ -17,13 +17,17 @@
     }
   </style>
   <body>
-    <h1>tauri-app</h1>
-<script style="display: block; white-space: pre; font-family: monospace;">
-  document.body.firstElementChild.innerHTML = `localStorage.data: ${localStorage.data}`;
-  window.__TAURI__?.window.getCurrent().listen('tauri://close-requested', () => {
-    localStorage.data = 1;
-    window.__TAURI__?.window.getCurrent().close();
+    <button id="btn">get user media</button>
+    <label><input type="checkbox" id="ck"> captured stream</label>
+    <script style="display: block; white-space: pre; font-family: monospace">
+btn.onclick = () => {
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+    ck.checked = true;
+  }).catch((err) => {
+    document.body.innerHTML = String(err);
   });
-</script>
+  document.body.append('getUserMedia');
+};
+    </script>
   </body>
 </html>
